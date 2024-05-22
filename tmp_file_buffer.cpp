@@ -20,28 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "helper.hpp"
-#include "config.hpp"
+#include "tmp_file_buffer.hpp"
 
-#include <rocprofiler-sdk/fwd.h>
-#include <rocprofiler-sdk/cxx/name_info.hpp>
+#include <fmt/format.h>
 
-#include <atomic>
-#include <iostream>
-#include <mutex>
-#include <tuple>
-#include <unordered_map>
-#include <unordered_set>
 #include <utility>
 
-::rocprofiler::sdk::buffer_name_info_t<std::string_view>
-get_buffer_id_names()
+std::string
+compose_tmp_file_name(domain_type buffer_type)
 {
-    return ::rocprofiler::sdk::get_buffer_tracing_names();
-}
-
-::rocprofiler::sdk::callback_name_info_t<std::string_view>
-get_callback_id_names()
-{
-    return ::rocprofiler::sdk::get_callback_tracing_names();
+    return rocprofiler::tool::format(fmt::format("{}/.rocprofv3/{}-{}.dat",
+                                                 rocprofiler::tool::get_config().tmp_directory,
+                                                 "%ppid%-%pid%",
+                                                 get_domain_file_name(buffer_type)));
 }

@@ -20,28 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#pragma once
+
 #include "helper.hpp"
-#include "config.hpp"
 
-#include <rocprofiler-sdk/fwd.h>
-#include <rocprofiler-sdk/cxx/name_info.hpp>
-
-#include <atomic>
-#include <iostream>
-#include <mutex>
-#include <tuple>
-#include <unordered_map>
-#include <unordered_set>
-#include <utility>
-
-::rocprofiler::sdk::buffer_name_info_t<std::string_view>
-get_buffer_id_names()
+namespace rocprofiler
 {
-    return ::rocprofiler::sdk::get_buffer_tracing_names();
-}
-
-::rocprofiler::sdk::callback_name_info_t<std::string_view>
-get_callback_id_names()
+namespace tool
 {
-    return ::rocprofiler::sdk::get_callback_tracing_names();
-}
+void
+write_json(tool_table*                                                      tool_functions,
+           uint64_t                                                         pid,
+           std::vector<rocprofiler_agent_v0_t>                              agent_data,
+           std::vector<rocprofiler_tool_counter_info_t>                     counter_data,
+           std::deque<rocprofiler_buffer_tracing_hip_api_record_t>*         hip_api_deque,
+           std::deque<rocprofiler_buffer_tracing_hsa_api_record_t>*         hsa_api_deque,
+           std::deque<rocprofiler_buffer_tracing_kernel_dispatch_record_t>* kernel_dispatch_deque,
+           std::deque<rocprofiler_buffer_tracing_memory_copy_record_t>*     memory_copy_deque,
+           std::deque<rocprofiler_tool_counter_collection_record_t>*       counter_collection_deque,
+           std::deque<rocprofiler_buffer_tracing_marker_api_record_t>*     marker_api_deque,
+           std::deque<rocprofiler_buffer_tracing_scratch_memory_record_t>* scratch_api_deque);
+
+}  // namespace tool
+}  // namespace rocprofiler
