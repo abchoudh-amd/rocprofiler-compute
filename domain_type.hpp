@@ -33,6 +33,7 @@ enum class domain_type
     MEMORY_COPY,
     SCRATCH_MEMORY,
     COUNTER_COLLECTION,
+    RCCL,
     LAST,
 };
 
