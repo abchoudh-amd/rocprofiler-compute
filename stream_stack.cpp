@@ -42,7 +42,6 @@ get_stream_stack()
             construct(rocprofiler_stream_id_t{.handle = 0});
     return _v;
 }
-
 }  // namespace
 
 void
@@ -69,7 +68,6 @@ stream_stack_empty()
 {
     return CHECK_NOTNULL(get_stream_stack())->empty();
 }
-
 }  // namespace stream
 }  // namespace tool
 }  // namespace rocprofiler
